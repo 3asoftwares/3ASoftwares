@@ -30,7 +30,7 @@ function App() {
     });
   }, []);
 
-  useDocTitle("MLD | Molad e Konsult - Bespoke Web and Mobile Applications");
+  useDocTitle('3A Softwares | Bespoke Web and Mobile Applications');
 
   return (
     <>
