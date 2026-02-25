@@ -30,7 +30,7 @@ function App() {
     });
   }, []);
 
-  useDocTitle('3A Softwares | Bespoke Web and Mobile Applications');
+  useDocTitle('3A Softwares');
 
   return (
     <>

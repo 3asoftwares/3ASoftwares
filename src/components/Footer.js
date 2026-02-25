@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 const Footer = () => {
@@ -14,10 +14,15 @@ const Footer = () => {
                             <div className='box-border border-b-4 border-black p-8 bg-gray-200 text-gray-600 text-center rounded-lg xl:w-80 mx-auto'>
                                 <h3 className='font-bold text-4xl mb-4'>3A Softwares</h3>
                                 <div className='text-md font-medium text-gray-600'>
-                                    <h5>52, Akash Green</h5>
-                                    <p>In front of Gomatgiri,</p>
-                                    <p>Indore,</p>
-                                    <p>Madhya Pradesh.</p>
+                                    <p>
+                                        52, Aakash Greens
+                                        <br />
+                                        In front of Gomatgiri,
+                                        <br />
+                                        Naya Basera, Gandhi Nagar
+                                        <br />
+                                        Indore, Madhya Pradesh 453112
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +47,7 @@ const Footer = () => {
                                 </li>
                                 <li className='mb-2'>
                                     <HashLink
-                                        to="/contact#contact"
+                                        to='/contact#contact'
                                         className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
                                         Contact
                                     </HashLink>
@@ -112,7 +117,7 @@ const Footer = () => {
                     <div className='flex flex-wrap items-center md:justify-between justify-center mx-auto px-4'>
                         <div className='w-full md:w-4/12 px-4 mx-auto text-center py-2'>
                             <div className='text-sm text-gray-200 font-semibold py-1'>
-                                Copyright &copy; 2021{' '}
+                                Copyright &copy; 2025{' '}
                                 <HashLink to='#' className=' hover:text-gray-900'>
                                     3A Softwares
                                 </HashLink>
@@ -124,5 +129,5 @@ const Footer = () => {
             </footer>
         </>
     );
-}
+};
 export default Footer;

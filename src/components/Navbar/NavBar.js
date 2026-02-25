@@ -20,8 +20,8 @@ const NavBar = () => {
 
     return (
         <nav className={`fixed top-0 w-full z-30 transition duration-300 ease-in-out mb-16 ${!top && 'bg-white shadow-lg'}`}>
-            <div className='flex flex-row justify-between items-center py-2'>
-                <div className='flex flex-row justify-center md:px-12 md:mx-12 items-center text-center font-semibold'>
+            <div className='flex flex-row w-[calc(100%-2rem)] justify-between items-center py-2'>
+                <div className='flex flex-row justify-center md:pl-16 items-center text-center font-semibold'>
                     <HashLink smooth to='/#hero'>
                         <h1 className='flex gap-2 items-center font-extrabold text-4xl text-black'>
                             <img src={logoBlack} alt='client' className='w-16' />
@@ -49,7 +49,6 @@ const NavBar = () => {
                     <div className='hidden space-x-2 lg:inline-block py-1 px-5'>
                         <NavLinks />
                     </div>
-
                     <div
                         className={`fixed transition-transform duration-300 ease-in-out transit flex justify-center left-0 w-full h-auto rounded-md p-24 bg-white lg:hidden shadow-xl top-14 ${
                             isOpen ? 'block' : 'hidden'

@@ -169,7 +169,9 @@ const Contact = () => {
                                 </div>
                                 <div className='flex flex-col'>
                                     <h2 className='text-2xl'>Office Address</h2>
-                                    <p className='text-gray-400'>Akash Greens, 52, in front of Gomatgiri Main Gate, Indore 452001</p>
+                                    <p className='text-gray-400'>
+                                        52, Aakash Greens, In front of Gomatgiri, Naya Basera, Gandhi Nagar, Indore, Madhya Pradesh 453112
+                                    </p>
                                 </div>
                             </div>
 
