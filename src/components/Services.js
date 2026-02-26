@@ -6,10 +6,10 @@ import img4 from '../images/consultation.svg';
 
 const Services = () => {
     return (
-        <div id='services' className='bg-gray-100 py-12'>
+        <div id='services' className='bg-gray-100 pt-24 pb-12'>
             <section data-aos='zoom-in-down'>
                 <div className='my-4 py-4'>
-                    <h2 className='my-2 text-center text-3xl text-black uppercase font-bold'>services</h2>
+                    <h2 className='my-2 text-center text-3xl text-black uppercase font-bold'>What we offer</h2>
 
                     <div className='flex justify-center'>
                         <div className='w-24 border-b-4 border-black'></div>

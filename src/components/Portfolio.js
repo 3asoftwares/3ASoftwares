@@ -33,11 +33,11 @@ const Portfolio = () => {
     ];
 
     return (
-        <div className='my-4 py-12 md:py-16' id='portfolio'>
+        <div className='m-auto p-2 md:p-24 h-5/6' id='portfolio'>
             <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
                 <h2 className='my-2 text-center text-3xl md:text-4xl text-black uppercase font-bold'>Portfolio</h2>
                 <div className='flex justify-center mb-8'>
-                    <div className='w-24 border-b-4 border-blue-600'></div>
+                    <div className='w-24 border-b-4 border-gray-600'></div>
                 </div>
                 <p className='text-center text-lg md:text-xl text-gray-700 mb-12'>Showcasing our successful projects and client solutions</p>
 
@@ -46,10 +46,10 @@ const Portfolio = () => {
                         <div
                             key={project.id}
                             className='bg-white rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 ease-in-out hover:scale-105 overflow-hidden group'>
-                            <div className='bg-gradient-to-r from-blue-600 to-blue-800 p-6 text-white'>
+                            <div className='bg-gradient-to-r from-gray-600 to-gray-800 p-6 text-white'>
                                 <div className='text-4xl mb-4'>{project.icon}</div>
                                 <h3 className='text-2xl md:text-3xl font-bold mb-2'>{project.title}</h3>
-                                <p className='text-blue-100 text-sm md:text-base font-semibold'>{project.category}</p>
+                                <p className='text-gray-100 text-sm md:text-base font-semibold'>{project.category}</p>
                             </div>
 
                             {/* Content */}
@@ -62,7 +62,7 @@ const Portfolio = () => {
                                     <h4 className='font-bold text-gray-900 text-sm md:text-base mb-3'>Key Features:</h4>
                                     <div className='flex flex-wrap gap-2'>
                                         {project.features.map((feature, idx) => (
-                                            <span key={idx} className='bg-blue-100 text-blue-800 text-xs md:text-sm px-3 py-1 rounded-full font-medium'>
+                                            <span key={idx} className='bg-gray-100 text-gray-800 text-xs md:text-sm px-3 py-1 rounded-full font-medium'>
                                                 {feature}
                                             </span>
                                         ))}
@@ -73,7 +73,7 @@ const Portfolio = () => {
                                 <div className='flex gap-3 flex-col sm:flex-row'>
                                     <Link
                                         to='/contact'
-                                        className='flex-1 text-white bg-blue-600 hover:bg-blue-800 transition-all duration-300 inline-flex items-center justify-center px-4 py-3 rounded-lg font-semibold text-sm md:text-base shadow-lg hover:shadow-xl'>
+                                        className='flex-1 text-white bg-gray-600 hover:bg-gray-800 transition-all duration-300 inline-flex items-center justify-center px-4 py-3 rounded-lg font-semibold text-sm md:text-base shadow-lg hover:shadow-xl'>
                                         Learn More
                                         <svg className='w-4 h-4 ml-2' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                             <path
@@ -84,21 +84,21 @@ const Portfolio = () => {
                                     </Link>
                                     <Link
                                         to='/contact'
-                                        className='flex-1 text-blue-600 border-2 border-blue-600 hover:bg-blue-50 transition-all duration-300 inline-flex items-center justify-center px-4 py-3 rounded-lg font-semibold text-sm md:text-base'>
+                                        className='flex-1 text-gray-600 border-2 border-gray-600 hover:bg-gray-50 transition-all duration-300 inline-flex items-center justify-center px-4 py-3 rounded-lg font-semibold text-sm md:text-base'>
                                         Case Study
                                     </Link>
                                 </div>
                             </div>
 
                             {/* Bottom accent */}
-                            <div className='h-1 bg-gradient-to-r from-blue-400 to-blue-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500'></div>
+                            <div className='h-1 bg-gradient-to-r from-gray-400 to-gray-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500'></div>
                         </div>
                     ))}
                 </div>
 
                 {/* Additional CTA */}
                 <div className='mt-12 md:mt-16 text-center' data-aos='fade-up' data-aos-delay='600'>
-                    <div className='bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-8 md:p-12 border-2 border-blue-200'>
+                    <div className='bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8 md:p-12 border-2 border-gray-200'>
                         <h3 className='text-2xl md:text-3xl font-bold text-gray-900 mb-4'>Ready to See More?</h3>
                         <p className='text-gray-700 text-base md:text-lg mb-6 max-w-2xl mx-auto'>
                             Our team has successfully delivered numerous projects across different industries. Get in touch to discuss your project
@@ -106,7 +106,7 @@ const Portfolio = () => {
                         </p>
                         <Link
                             to='/contact'
-                            className='inline-block bg-blue-600 text-white px-8 py-3 md:py-4 rounded-lg font-bold hover:bg-blue-800 transition-all duration-300 transform hover:scale-105 text-sm md:text-base'>
+                            className='inline-block bg-gray-600 text-white px-8 py-3 md:py-4 rounded-lg font-bold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 text-sm md:text-base'>
                             Start Your Project Today
                         </Link>
                     </div>

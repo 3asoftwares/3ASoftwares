@@ -13,11 +13,8 @@ const NavLinks = () => {
             <HashLink className='px-4 font-extrabold text-gray-500 hover:text-black' smooth to='/#products'>
                 Products
             </HashLink>
-            <HashLink className='px-4 font-extrabold text-gray-500 hover:text-black' smooth to='/#products'>
-                Products
-            </HashLink>
-            <HashLink className='px-4 font-extrabold text-gray-500 hover:text-black' smooth to='/#products'>
-                Products
+            <HashLink className='px-4 font-extrabold text-gray-500 hover:text-black' smooth to='/#portfolio'>
+                Portfolio
             </HashLink>
             <HashLink className='px-4 font-extrabold text-gray-500 hover:text-black' to='/contact#contact'>
                 Contact Us
