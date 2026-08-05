@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
+import Link from 'next/link';
 
 const Footer = () => {
     return (
@@ -32,25 +31,25 @@ const Footer = () => {
                             <h6 className='text-[#013289] text-xl font-bold mb-4'>LINKS</h6>
                             <ul className='text-md'>
                                 <li className='mb-2'>
-                                    <HashLink
-                                        to='about'
+                                    <Link
+                                        href='/#about'
                                         className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
                                         About
-                                    </HashLink>
+                                    </Link>
                                 </li>
                                 <li className='mb-2'>
-                                    <HashLink
-                                        to='services'
+                                    <Link
+                                        href='/#services'
                                         className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
                                         Services
-                                    </HashLink>
+                                    </Link>
                                 </li>
                                 <li className='mb-2'>
-                                    <HashLink
-                                        to='/contact#contact'
+                                    <Link
+                                        href='/contact#contact'
                                         className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
                                         Contact
-                                    </HashLink>
+                                    </Link>
                                 </li>
                             </ul>
                         </div>
@@ -60,22 +59,22 @@ const Footer = () => {
                             <h6 className='text-[#013289] text-xl font-bold mb-4'>OUR SERVICES</h6>
                             <ul className='text-md'>
                                 <li className='mb-2'>
-                                    <Link to='#' className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
+                                    <Link href='#' className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
                                         Web Development
                                     </Link>
                                 </li>
                                 <li className='mb-2'>
-                                    <Link to='#' className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
+                                    <Link href='#' className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
                                         Mobile App Development
                                     </Link>
                                 </li>
                                 <li className='mb-2'>
-                                    <Link to='#' className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
+                                    <Link href='#' className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
                                         Domain and Hosting
                                     </Link>
                                 </li>
                                 <li className='mb-2'>
-                                    <Link to='#' className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
+                                    <Link href='#' className='text-[#013289] hover:text-gray-900 hover:tracking-wider transition duration-250 ease-in-out'>
                                         General IT Consultations
                                     </Link>
                                 </li>
@@ -91,7 +90,7 @@ const Footer = () => {
                                 <ul className='flex justify-center mb-4 md:mb-0'>
                                     <li>
                                         <Link
-                                            to='#'
+                                            href='#'
                                             className='flex justify-center items-center text-black hover:text-gray-500 bg-white hover:bg-white-100 rounded-full shadow transition duration-150 ease-in-out'
                                             aria-label='Twitter'>
                                             <svg className='w-8 h-8 fill-current' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'>
@@ -101,7 +100,7 @@ const Footer = () => {
                                     </li>
                                     <li className='ml-4'>
                                         <Link
-                                            to='#'
+                                            href='#'
                                             className='flex justify-center items-center text-black hover:text-gray-500 bg-white hover:bg-white-100 rounded-full shadow transition duration-150 ease-in-out'
                                             aria-label='Facebook'>
                                             <svg className='w-8 h-8 fill-current' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'>
@@ -118,9 +117,9 @@ const Footer = () => {
                         <div className='w-full md:w-4/12 px-4 mx-auto text-center py-2'>
                             <div className='text-sm text-gray-200 font-semibold py-1'>
                                 Copyright &copy; 2025{' '}
-                                <HashLink to='#' className=' hover:text-gray-900'>
+                                <Link href='/' className=' hover:text-gray-900'>
                                     3A Softwares
-                                </HashLink>
+                                </Link>
                                 . All rights reserved.
                             </div>
                         </div>

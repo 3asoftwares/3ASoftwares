@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx next *)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -w \"\\\\nHTTP_CODE:%{http_code}\\\\n\" -X POST http://localhost:3000/api/paytm/initiate -H \"Content-Type: application/json\" -d '{\"planId\":1,\"name\":\"Test User\",\"email\":\"test@example.com\",\"phone\":\"9999999999\"}')",
+      "Bash(curl -s -o /dev/null -w \"home still up: %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(pkill -f \"next-server\")",
+      "Bash(npx prisma *)",
+      "Bash(powershell -Command \"Get-Process -Name node -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,Path\")",
+      "Bash(cat /tmp/nextdev2.log 2>&1)",
+      "Bash(curl -s -o /dev/null -w \"home: %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(DATABASE_URL=\"mongodb://localhost/dummy\" npx prisma validate)"
+    ]
+  }
+}

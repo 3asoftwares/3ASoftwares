@@ -1,89 +1,91 @@
-import React, { useState } from 'react';
-import NavBar from '../components/Navbar/NavBar';
-import Footer from '../components/Footer';
-import axios from 'axios';
-import Notiflix from 'notiflix';
+'use client';
 
-const Contact = () => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
-    const [message, setMessage] = useState('')
-    const [errors, setErrors] = useState([])
+import { useState } from 'react';
+import NavBar from '@/components/Navbar/NavBar';
+import Footer from '@/components/Footer';
 
-    const clearErrors = () => {
-        setErrors([])
-    }
+const initialForm = { firstName: '', lastName: '', email: '', phone: '', message: '' };
 
-    const clearInput = () => {
-        setFirstName('')
-        setLastName('')
-        setEmail('')
-        setPhone('')
-        setMessage('')
-    }
+export default function GetDemoPage() {
+    const [form, setForm] = useState(initialForm);
+    const [demoProducts, setDemoProducts] = useState([]);
+    const [submitting, setSubmitting] = useState(false);
+    const [errors, setErrors] = useState({});
 
-    const sendEmail = (e) => {
+    const handleChange = (field) => (e) => {
+        setForm((f) => ({ ...f, [field]: e.target.value }));
+        setErrors({});
+    };
+
+    const handleProductToggle = (e) => {
+        const { value, checked } = e.target;
+        setErrors((err) => ({ ...err, products: undefined }));
+        setDemoProducts((current) => (checked ? [...current, value] : current.filter((p) => p !== value)));
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        document.getElementById('submitBtn').disabled = true;
-        document.getElementById('submitBtn').innerHTML = 'Loading...';
-        let fData = new FormData();
-        fData.append('first_name', firstName)
-        fData.append('last_name', lastName)
-        fData.append('email', email)
-        fData.append('phone_number', phone)
-        fData.append('message', message)
+        setSubmitting(true);
+        try {
+            const res = await fetch('/api/demo-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...form, products: demoProducts }),
+            });
+            const data = await res.json();
+            const { default: Notiflix } = await import('notiflix');
+            if (!res.ok) {
+                Notiflix.Report.failure('An error occurred', data.message || 'Please try again.', 'Okay');
+                setErrors(data.errors || {});
+            } else {
+                Notiflix.Report.success('Success', data.message, 'Okay');
+                setForm(initialForm);
+                setDemoProducts([]);
+            }
+        } catch (err) {
+            const { default: Notiflix } = await import('notiflix');
+            Notiflix.Report.failure('An error occurred', 'Please try sending the message again.', 'Okay');
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
-        axios({
-            method: "post",
-            url: process.env.REACT_APP_CONTACT_API,
-            data: fData,
-            headers: {
-                'Content-Type':  'multipart/form-data'
-            }
-        })
-        .then(function (response) {
-            document.getElementById('submitBtn').disabled = false;
-            document.getElementById('submitBtn').innerHTML = 'send message';
-            clearInput()
-            //handle success
-            Notiflix.Report.success(
-                'Success',
-                response.data.message,
-                'Okay',
-            );
-        })
-        .catch(function (error) {
-            document.getElementById('submitBtn').disabled = false;
-            document.getElementById('submitBtn').innerHTML = 'send message';
-            //handle error
-            const { response } = error;
-            if(response.status === 500) {
-                Notiflix.Report.failure(
-                    'An error occurred',
-                    response.data.message,
-                    'Okay',
-                );
-            }
-            if(response.data.errors !== null) {
-                setErrors(response.data.errors)
-            }
-            
-        });
-    }
+    const productOptions = [
+        { value: 'business_management_system', label: 'Business Management System' },
+        { value: 'school_management_portal', label: 'School Management Portal' },
+        { value: 'payroll_management_system', label: 'Payroll Management System' },
+        { value: 'event_management_system', label: 'Event Management System' },
+    ];
+
     return (
         <>
             <div>
                 <NavBar />
             </div>
-            <div id='contact' className='flex justify-center items-center mt-8 w-full bg-white py-12 lg:py-24 '>
+            <div id='demo' className='flex justify-center items-center mt-8 w-full bg-white py-12 lg:py-24'>
                 <div className='container mx-auto my-8 px-4 lg:px-20' data-aos='zoom-in'>
-                    <form onSubmit={sendEmail}>
+                    <form onSubmit={handleSubmit}>
                         <div className='w-full bg-white p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl'>
                             <div className='flex'>
-                                <h1 className='font-bold text-center lg:text-left text-black uppercase text-4xl'>Send us a message</h1>
+                                <h1 className='font-bold text-center lg:text-left text-black uppercase text-4xl'>Demo our products</h1>
                             </div>
+                            {productOptions.map((opt) => (
+                                <div className='flex items-center my-4' key={opt.value}>
+                                    <input
+                                        id={`checkbox-${opt.value}`}
+                                        type='checkbox'
+                                        className='bg-gray-50 border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded'
+                                        value={opt.value}
+                                        checked={demoProducts.includes(opt.value)}
+                                        onChange={handleProductToggle}
+                                    />
+                                    <label htmlFor={`checkbox-${opt.value}`} className='ml-3 text-lg font-medium text-gray-900'>
+                                        {opt.label}
+                                    </label>
+                                </div>
+                            ))}
+                            {errors.products && <p className='text-red-500 text-sm'>{errors.products}</p>}
+
                             <div className='grid grid-cols-1 gap-5 md:grid-cols-2 mt-5'>
                                 <div>
                                     <input
@@ -91,11 +93,10 @@ const Contact = () => {
                                         className='w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline'
                                         type='text'
                                         placeholder='First Name*'
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                        onKeyUp={clearErrors}
+                                        value={form.firstName}
+                                        onChange={handleChange('firstName')}
                                     />
-                                    {errors && <p className='text-red-500 text-sm'>{errors.first_name}</p>}
+                                    {errors.first_name && <p className='text-red-500 text-sm'>{errors.first_name}</p>}
                                 </div>
 
                                 <div>
@@ -104,11 +105,10 @@ const Contact = () => {
                                         className='w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline'
                                         type='text'
                                         placeholder='Last Name*'
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                        onKeyUp={clearErrors}
+                                        value={form.lastName}
+                                        onChange={handleChange('lastName')}
                                     />
-                                    {errors && <p className='text-red-500 text-sm'>{errors.last_name}</p>}
+                                    {errors.last_name && <p className='text-red-500 text-sm'>{errors.last_name}</p>}
                                 </div>
 
                                 <div>
@@ -117,24 +117,22 @@ const Contact = () => {
                                         className='w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline'
                                         type='email'
                                         placeholder='Email*'
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        onKeyUp={clearErrors}
+                                        value={form.email}
+                                        onChange={handleChange('email')}
                                     />
-                                    {errors && <p className='text-red-500 text-sm'>{errors.email}</p>}
+                                    {errors.email && <p className='text-red-500 text-sm'>{errors.email}</p>}
                                 </div>
 
                                 <div>
                                     <input
                                         name='phone_number'
                                         className='w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline'
-                                        type='number'
+                                        type='tel'
                                         placeholder='Phone*'
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
-                                        onKeyUp={clearErrors}
+                                        value={form.phone}
+                                        onChange={handleChange('phone')}
                                     />
-                                    {errors && <p className='text-red-500 text-sm'>{errors.phone_number}</p>}
+                                    {errors.phone_number && <p className='text-red-500 text-sm'>{errors.phone_number}</p>}
                                 </div>
                             </div>
                             <div className='my-4'>
@@ -142,18 +140,17 @@ const Contact = () => {
                                     name='message'
                                     placeholder='Message*'
                                     className='w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline'
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    onKeyUp={clearErrors}></textarea>
-                                {errors && <p className='text-red-500 text-sm'>{errors.message}</p>}
+                                    value={form.message}
+                                    onChange={handleChange('message')}></textarea>
+                                {errors.message && <p className='text-red-500 text-sm'>{errors.message}</p>}
                             </div>
                             <div className='my-2 w-1/2 lg:w-2/4'>
                                 <button
                                     type='submit'
-                                    id='submitBtn'
-                                    className='uppercase text-sm font-bold tracking-wide bg-gray-500 hover:bg-black text-gray-100 p-3 w-full 
+                                    disabled={submitting}
+                                    className='uppercase text-sm font-bold tracking-wide bg-gray-500 hover:bg-black text-gray-100 p-3 w-full disabled:opacity-60
                                     focus:outline-none focus:shadow-outline'>
-                                    Send Message
+                                    {submitting ? 'Loading...' : 'Send Message'}
                                 </button>
                             </div>
                         </div>
@@ -166,9 +163,7 @@ const Contact = () => {
                                 </div>
                                 <div className='flex flex-col'>
                                     <h2 className='text-2xl'>Office Address</h2>
-                                    <p className='text-gray-400'>
-                                        52, Aakash Greens, In front of Gomatgiri, Naya Basera, Gandhi Nagar, Indore, Madhya Pradesh 453112
-                                    </p>
+                                    <p className='text-gray-400'>Akash Greens, 52, in front of Gomatgiri Main Gate, Indore 452001</p>
                                 </div>
                             </div>
 
@@ -193,7 +188,7 @@ const Contact = () => {
                                     href='https://www.facebook.com/ENLIGHTENEERING/'
                                     target='_blank'
                                     rel='noreferrer'
-                                    className='rounded-full flex justify-center bg-white h-8 text-black  w-8  mx-1 text-center pt-1'>
+                                    className='rounded-full flex justify-center bg-white h-8 text-black  w-8 mx-1 text-center pt-1'>
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
                                         width='24'
@@ -207,7 +202,7 @@ const Contact = () => {
                                     href='https://www.linkedin.com/company/enlighteneering-inc-'
                                     target='_blank'
                                     rel='noreferrer'
-                                    className='rounded-full flex justify-center bg-white h-8 text-black  w-8  mx-1 text-center pt-1'>
+                                    className='rounded-full flex justify-center bg-white h-8 text-black  w-8 mx-1 text-center pt-1'>
                                     <svg
                                         xmlns='http://www.w3.org/2000/svg'
                                         width='24'
@@ -227,5 +222,3 @@ const Contact = () => {
         </>
     );
 }
-
-export default Contact;

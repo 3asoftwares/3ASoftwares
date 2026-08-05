@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Portfolio = () => {
     const projects = [
@@ -72,7 +72,7 @@ const Portfolio = () => {
                                 {/* CTA Buttons */}
                                 <div className='flex gap-3 flex-col sm:flex-row'>
                                     <Link
-                                        to='/contact'
+                                        href='/contact'
                                         className='flex-1 text-white bg-gray-600 hover:bg-gray-800 transition-all duration-300 inline-flex items-center justify-center px-4 py-3 rounded-lg font-semibold text-sm md:text-base shadow-lg hover:shadow-xl'>
                                         Learn More
                                         <svg className='w-4 h-4 ml-2' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
@@ -83,7 +83,7 @@ const Portfolio = () => {
                                         </svg>
                                     </Link>
                                     <Link
-                                        to='/contact'
+                                        href='/contact'
                                         className='flex-1 text-gray-600 border-2 border-gray-600 hover:bg-gray-50 transition-all duration-300 inline-flex items-center justify-center px-4 py-3 rounded-lg font-semibold text-sm md:text-base'>
                                         Case Study
                                     </Link>
@@ -105,7 +105,7 @@ const Portfolio = () => {
                             requirements.
                         </p>
                         <Link
-                            to='/contact'
+                            href='/contact'
                             className='inline-block bg-gray-600 text-white px-8 py-3 md:py-4 rounded-lg font-bold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105 text-sm md:text-base'>
                             Start Your Project Today
                         </Link>

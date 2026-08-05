@@ -1,10 +1,12 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import NavLinks from '../Navbar/NavLinks';
-import { HashLink } from 'react-router-hash-link';
+import Link from 'next/link';
 import logoBlack from '../../images/logo-black.png';
 
 const NavBar = () => {
-    const [top, setTop] = useState(!window.scrollY);
+    const [top, setTop] = useState(true);
     const [isOpen, setisOpen] = React.useState(false);
     function handleClick() {
         setisOpen(!isOpen);
@@ -14,19 +16,20 @@ const NavBar = () => {
         const scrollHandler = () => {
             window.pageYOffset > 10 ? setTop(false) : setTop(true);
         };
+        scrollHandler();
         window.addEventListener('scroll', scrollHandler);
         return () => window.removeEventListener('scroll', scrollHandler);
-    }, [top]);
+    }, []);
 
     return (
         <nav className={`fixed top-0 w-full z-30 transition duration-300 ease-in-out mb-16 ${!top && 'bg-white shadow-lg'}`}>
             <div className='flex flex-row w-[calc(100%-2rem)] justify-between items-center py-2'>
                 <div className='flex flex-row justify-center md:pl-16 items-center text-center font-semibold'>
-                    <HashLink smooth to='/#hero'>
+                    <Link href='/#hero'>
                         <h1 className='flex gap-2 items-center font-extrabold text-4xl text-black'>
-                            <img src={logoBlack} alt='client' className='w-16' />
+                            <img src={logoBlack.src} alt='client' className='w-16' />
                         </h1>
-                    </HashLink>
+                    </Link>
                 </div>
                 <div className='group flex flex-col items-center'>
                     <button className='p-2 rounded-lg lg:hidden text-black' onClick={handleClick}>

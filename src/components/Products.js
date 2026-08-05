@@ -1,78 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { PLANS } from '../lib/constants';
+import RazorpayCheckout from './payment/RazorpayCheckout';
 
 const Products = () => {
-    const products = [
-        {
-            id: 1,
-            title: 'Basic Business Website',
-            price: '₹5,000',
-            icon: '💻',
-            bestFor: 'Small businesses & startups',
-            features: [
-                '4–5 Pages (Home, About, Services, Contact)',
-                'Mobile Responsive Design',
-                'Contact Form',
-                'WhatsApp Integration',
-                'Basic SEO Setup',
-                '1 Month Free Support',
-            ],
-        },
-        {
-            id: 2,
-            title: 'Professional Website Plan',
-            price: '₹12,000',
-            icon: '🏢',
-            bestFor: 'Growing businesses',
-            features: ['Custom UI/UX', '6–8 Pages', 'Speed Optimization', 'SEO Optimization', 'Google Analytics Setup', '2 Months Support'],
-            featured: true,
-        },
-        {
-            id: 3,
-            title: 'E-Commerce Website Plan',
-            price: '₹18,000+',
-            icon: '🛒',
-            bestFor: 'Online stores',
-            features: [
-                'Product Management',
-                'Payment Gateway Integration',
-                'Cart & Checkout',
-                'Admin Dashboard',
-                'Order Management',
-                '2 Months Support with Basic SEO',
-            ],
-        },
-        {
-            id: 4,
-            title: 'Web Application Plan',
-            price: 'Custom Pricing',
-            icon: '⚙️',
-            bestFor: 'Enterprise solutions',
-            features: ['Custom Admin Panel', 'CRM / ERP Solutions', 'Dashboard Systems', 'API Integration', 'Role-Based Access'],
-        },
-        {
-            id: 5,
-            title: 'Mobile App Plan',
-            price: 'Custom Pricing',
-            icon: '📱',
-            bestFor: 'iOS & Android apps',
-            features: [
-                'Android App Development',
-                'iOS App Development',
-                'Backend Integration',
-                'Play Store Deployment Support',
-                'App Store Deployment Support',
-            ],
-        },
-        {
-            id: 6,
-            title: 'Website Maintenance Plan',
-            price: '₹2,000 / Month',
-            icon: '🌐',
-            bestFor: 'Ongoing support',
-            features: ['Regular Updates', 'Backup Management', 'Security Monitoring', 'Minor Content Changes', '24/7 Support'],
-        },
-    ];
+    const [selectedPlan, setSelectedPlan] = useState(null);
 
     return (
         <div id='products' className='bg-white pt-24'>
@@ -85,11 +19,15 @@ const Products = () => {
                     <p className='mt-4 mx-4 md:mx-12 text-center text-lg md:text-xl font-medium text-gray-700'>
                         Choose the perfect package for your business needs
                     </p>
+                    <p className='mt-2 mx-4 md:mx-12 text-center text-sm md:text-base font-medium text-gray-500'>
+                        Click "Get Started" to reserve your project slot with a refundable ₹99 booking fee — your final quote is settled separately based on
+                        your requirements.
+                    </p>
                 </div>
 
                 <div className='px-4 md:px-6 lg:px-24 py-8' data-aos='fade-up' data-aos-delay='300'>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
-                        {products.map((product) => (
+                        {PLANS.map((product) => (
                             <div
                                 key={product.id}
                                 className={`relative group rounded-xl shadow-lg overflow-hidden transition-all duration-500 ease-in-out ${
@@ -133,13 +71,14 @@ const Products = () => {
                                     </ul>
 
                                     {/* CTA Button */}
-                                    <Link
-                                        to='/contact'
+                                    <button
+                                        type='button'
+                                        onClick={() => setSelectedPlan(product)}
                                         className={`w-full py-2 md:py-4 px-4 rounded-lg font-bold text-center transition-all duration-300 transform hover:scale-105 ${
                                             product.featured ? 'bg-yellow-400 text-black hover:bg-yellow-300' : 'bg-gray-600 text-white hover:bg-gray-800'
                                         }`}>
                                         Get Started
-                                    </Link>
+                                    </button>
                                 </div>
 
                                 {/* Hover Effect Bottom Border */}
@@ -159,7 +98,7 @@ const Products = () => {
                                 We offer fully customized packages tailored to your specific business requirements. Get in touch with our team today!
                             </p>
                             <Link
-                                to='/contact'
+                                href='/contact'
                                 className='inline-block bg-gray-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-gray-800 transition-all duration-300 transform hover:scale-105'>
                                 Contact Us Today
                             </Link>
@@ -167,6 +106,8 @@ const Products = () => {
                     </div>
                 </div>
             </section>
+
+            {selectedPlan && <RazorpayCheckout plan={selectedPlan} onClose={() => setSelectedPlan(null)} />}
         </div>
     );
 };
