@@ -1,8 +1,11 @@
+export const DEFAULT_BOOKING_AMOUNT_RUPEES = 999;
+
 export const PLANS = [
     {
         id: 1,
         title: 'Basic Business Website',
-        price: '₹5,000',
+        price: '₹19,999',
+        bookingAmountRupees: 999,
         icon: '💻',
         bestFor: 'Small businesses & startups',
         features: [
@@ -17,7 +20,8 @@ export const PLANS = [
     {
         id: 2,
         title: 'Professional Website Plan',
-        price: '₹12,000',
+        price: '₹24,999',
+        bookingAmountRupees: 999,
         icon: '🏢',
         bestFor: 'Growing businesses',
         features: ['Custom UI/UX', '6–8 Pages', 'Speed Optimization', 'SEO Optimization', 'Google Analytics Setup', '2 Months Support'],
@@ -26,7 +30,8 @@ export const PLANS = [
     {
         id: 3,
         title: 'E-Commerce Website Plan',
-        price: '₹18,000+',
+        price: '₹49,999',
+        bookingAmountRupees: 999,
         icon: '🛒',
         bestFor: 'Online stores',
         features: [
@@ -41,7 +46,8 @@ export const PLANS = [
     {
         id: 4,
         title: 'Web Application Plan',
-        price: 'Custom Pricing',
+        price: '₹99,999',
+        bookingAmountRupees: 999,
         icon: '⚙️',
         bestFor: 'Enterprise solutions',
         features: ['Custom Admin Panel', 'CRM / ERP Solutions', 'Dashboard Systems', 'API Integration', 'Role-Based Access'],
@@ -49,7 +55,8 @@ export const PLANS = [
     {
         id: 5,
         title: 'Mobile App Plan',
-        price: 'Custom Pricing',
+        price: '₹99,999',
+        bookingAmountRupees: 9,
         icon: '📱',
         bestFor: 'iOS & Android apps',
         features: [
@@ -63,9 +70,19 @@ export const PLANS = [
     {
         id: 6,
         title: 'Website Maintenance Plan',
-        price: '₹2,000 / Month',
+        price: '₹19,99 / Month',
+        bookingAmountRupees: 1999,
         icon: '🌐',
         bestFor: 'Ongoing support',
         features: ['Regular Updates', 'Backup Management', 'Security Monitoring', 'Minor Content Changes', '24/7 Support'],
     },
 ];
+
+export function getBookingAmountRupeesByPlanId(planId) {
+    const plan = PLANS.find((item) => item.id === Number(planId));
+    return Number(plan?.bookingAmountRupees || DEFAULT_BOOKING_AMOUNT_RUPEES);
+}
+
+export function getBookingAmountPaiseByPlanId(planId) {
+    return getBookingAmountRupeesByPlanId(planId) * 100;
+}

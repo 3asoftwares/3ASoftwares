@@ -18,6 +18,7 @@ export default async function PaymentFailedPage({ searchParams }) {
     }
 
     const failureReason = reason || payment?.failureReason || 'Payment could not be completed.';
+    const attemptedAmount = payment?.bookingAmount ? `₹${(payment.bookingAmount / 100).toFixed(2)}` : 'the booking amount';
 
     return (
         <>
@@ -28,7 +29,7 @@ export default async function PaymentFailedPage({ searchParams }) {
                     <h1 className='mb-4 text-3xl font-bold text-black md:text-4xl'>Payment Did Not Complete</h1>
                     <p className='mb-8 text-lg text-gray-600'>
                         {payment
-                            ? `Your ₹99 booking payment for ${payment.planName} was not completed.`
+                            ? `Your booking payment of ${attemptedAmount} for ${payment.planName} was not completed.`
                             : 'Your booking payment was not completed.'}{' '}
                         No amount has been reserved. Please retry.
                     </p>

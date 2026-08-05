@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { PLANS } from '../lib/constants';
+import { PLANS, getBookingAmountRupeesByPlanId } from '../lib/constants';
 import RazorpayCheckout from './payment/RazorpayCheckout';
 
 const Products = () => {
@@ -20,8 +20,8 @@ const Products = () => {
                         Choose the perfect package for your business needs
                     </p>
                     <p className='mt-2 mx-4 md:mx-12 text-center text-sm md:text-base font-medium text-gray-500'>
-                        Click "Get Started" to reserve your project slot with a refundable ₹99 booking fee — your final quote is settled separately based on
-                        your requirements.
+                        Booking fee is ₹999 for Basic, Professional, E-Commerce, and Web App plans, ₹1999 for Maintenance, and only ₹9 for the Mobile App
+                        plan.
                     </p>
                 </div>
 
@@ -44,7 +44,7 @@ const Products = () => {
                                 <div className='p-6 md:p-8 flex flex-col h-full mt-2'>
                                     {/* Icon */}
                                     <div className='flex gap-4 items-center mb-4'>
-                                        <span className='text-2xl md:text-2xl'>{product.icon}</span>
+                                        <span className='text-2xl'>{product.icon}</span>
                                         <h3 className={`text-xl md:text-2xl font-bold ${product.featured ? 'text-white' : 'text-gray-900'}`}>
                                             {product.title}
                                         </h3>
@@ -69,6 +69,10 @@ const Products = () => {
                                             </li>
                                         ))}
                                     </ul>
+
+                                    <p className='mb-4 text-xs font-semibold text-gray-500'>
+                                        Booking fee: ₹{getBookingAmountRupeesByPlanId(product.id)}
+                                    </p>
 
                                     {/* CTA Button */}
                                     <button
@@ -105,9 +109,9 @@ const Products = () => {
                         </div>
                     </div>
                 </div>
-            </section>
 
             {selectedPlan && <RazorpayCheckout plan={selectedPlan} onClose={() => setSelectedPlan(null)} />}
+            </section>
         </div>
     );
 };

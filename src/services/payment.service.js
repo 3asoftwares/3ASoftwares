@@ -1,8 +1,7 @@
 import Payment from '@/models/Payment';
 import Booking from '@/models/Booking';
-import { PLANS } from '@/lib/constants';
+import { PLANS, getBookingAmountPaiseByPlanId } from '@/lib/constants';
 import { getRazorpayClient, getRazorpaySecretByMode } from '@/lib/razorpay';
-import { BOOKING_AMOUNT_PAISE } from '@/lib/payment-constants';
 import { parsePlanPriceToRupees, verifyRazorpaySignature } from '@/utils/payment';
 
 export class PaymentServiceError extends Error {
@@ -31,8 +30,9 @@ export async function createBookingOrder({ planId, planName, amount, customerNam
     const razorpay = getRazorpayClient(gatewayMode);
     const normalizedPlanId = Number(planId);
     const normalizedAmount = Number(amount);
+    const bookingAmountPaise = getBookingAmountPaiseByPlanId(normalizedPlanId);
 
-    if (!Number.isInteger(normalizedPlanId) || normalizedAmount !== BOOKING_AMOUNT_PAISE) {
+    if (!Number.isInteger(normalizedPlanId) || normalizedAmount !== bookingAmountPaise) {
         throw new PaymentServiceError('Invalid order payload.', 400);
     }
 
@@ -61,7 +61,7 @@ export async function createBookingOrder({ planId, planName, amount, customerNam
 
     const receipt = await generateReceiptNumber();
     const razorpayOrder = await razorpay.orders.create({
-        amount: BOOKING_AMOUNT_PAISE,
+        amount: bookingAmountPaise,
         currency: 'INR',
         receipt,
         notes: {
@@ -75,7 +75,7 @@ export async function createBookingOrder({ planId, planName, amount, customerNam
         userId,
         planId: normalizedPlanId,
         planName,
-        bookingAmount: BOOKING_AMOUNT_PAISE,
+        bookingAmount: bookingAmountPaise,
         fullPlanAmount,
         currency: razorpayOrder.currency,
         paymentId: null,
@@ -124,7 +124,8 @@ export async function ensureBookingFromPayment(payment) {
     }
 
     const fullPlanAmount = payment.fullPlanAmount;
-    const remainingAmount = Number.isFinite(fullPlanAmount) ? Math.max(fullPlanAmount - 99, 0) : null;
+    const bookingAmountRupees = Number(payment.bookingAmount) / 100;
+    const remainingAmount = Number.isFinite(fullPlanAmount) ? Math.max(fullPlanAmount - bookingAmountRupees, 0) : null;
 
     const booking = await Booking.create({
         userId: payment.userId,

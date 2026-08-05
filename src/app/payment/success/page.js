@@ -21,6 +21,8 @@ export default async function PaymentSuccessPage({ searchParams }) {
         payment = await Payment.findOne({ orderId }).lean();
     }
 
+    const paidAmountPaise = booking?.bookingAmount || payment?.bookingAmount || 0;
+
     return (
         <>
             <NavBar />
@@ -29,7 +31,7 @@ export default async function PaymentSuccessPage({ searchParams }) {
                     <div className='text-6xl mb-6'>✅</div>
                     <h1 className='font-bold text-3xl md:text-4xl text-black mb-4'>Booking Confirmed!</h1>
                     <p className='text-gray-600 text-lg mb-8'>
-                        Thanks for your ₹99 booking fee — we've reserved your project slot and will reach out shortly to discuss your{' '}
+                        Thanks for your booking payment of ₹{(paidAmountPaise / 100).toFixed(2)} — we've reserved your project slot and will reach out shortly to discuss your{' '}
                         {booking?.planName || payment?.planName || 'project'} in detail.
                     </p>
 

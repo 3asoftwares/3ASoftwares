@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import { createBookingOrder, PaymentServiceError } from '@/services/payment.service';
-import { PLANS } from '@/lib/constants';
-import { BOOKING_AMOUNT_PAISE } from '@/lib/payment-constants';
+import { PLANS, getBookingAmountPaiseByPlanId } from '@/lib/constants';
 import { getRazorpayModeFromHost, getRazorpayPublicKeyByMode } from '@/lib/razorpay';
 import { enforceRateLimit, getClientIp } from '@/utils/rateLimit';
 import { isNonEmptyString, isEmail, isPhone } from '@/utils/validation';
@@ -44,7 +43,9 @@ export async function POST(request) {
         return NextResponse.json({ error: 'Plan validation failed.' }, { status: 400 });
     }
 
-    if (Number(amount) !== BOOKING_AMOUNT_PAISE) {
+    const expectedAmount = getBookingAmountPaiseByPlanId(planId);
+
+    if (Number(amount) !== expectedAmount) {
         return NextResponse.json({ error: 'Invalid booking amount.' }, { status: 400 });
     }
 

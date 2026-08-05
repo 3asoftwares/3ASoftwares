@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
-import { BOOKING_AMOUNT_PAISE } from '@/lib/payment-constants';
+import { getBookingAmountPaiseByPlanId } from '@/lib/constants';
 
 let razorpayScriptPromise = null;
 
@@ -41,7 +41,8 @@ export default function RazorpayCheckout({ plan, onClose }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const amountLabel = useMemo(() => `₹${(BOOKING_AMOUNT_PAISE / 100).toFixed(0)}`, []);
+    const bookingAmountPaise = useMemo(() => getBookingAmountPaiseByPlanId(plan.id), [plan.id]);
+    const amountLabel = useMemo(() => `₹${(bookingAmountPaise / 100).toFixed(0)}`, [bookingAmountPaise]);
 
     const handleChange = (field) => (event) => {
         setForm((prev) => ({ ...prev, [field]: event.target.value }));
@@ -164,7 +165,7 @@ export default function RazorpayCheckout({ plan, onClose }) {
                 body: JSON.stringify({
                     planId: plan.id,
                     planName: plan.title,
-                    amount: BOOKING_AMOUNT_PAISE,
+                    amount: bookingAmountPaise,
                     name: form.name,
                     email: form.email,
                     phone: form.phone,
