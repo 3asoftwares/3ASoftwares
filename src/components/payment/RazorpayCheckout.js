@@ -37,7 +37,7 @@ function Spinner() {
 }
 
 export default function RazorpayCheckout({ plan, onClose }) {
-    const [form, setForm] = useState({ name: '', email: '', phone: '' });
+    const [form, setForm] = useState({ name: 'Abhishek', email: 'abhi@gmail.com', phone: '9770080418' });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
