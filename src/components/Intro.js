@@ -29,7 +29,7 @@ const Intro = () => {
                         <Link
                             href='/contact'
                             className='text-white bg-black hover:bg-blue-800 inline-flex items-center justify-center w-full px-6 py-2 my-4 text-lg shadow-xl sm:w-auto sm:mb-0 group'>
-                            Contact us
+                            Contact
                             <svg className='w-4 h-4 ml-1 group-hover: translate-x-2' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
                                 <path
                                     fillRule='evenodd'
