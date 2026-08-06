@@ -13,7 +13,11 @@
       "Bash(powershell -Command \"Get-Process -Name node -ErrorAction SilentlyContinue | Select-Object Id,ProcessName,Path\")",
       "Bash(cat /tmp/nextdev2.log 2>&1)",
       "Bash(curl -s -o /dev/null -w \"home: %{http_code}\\\\n\" http://localhost:3000/)",
-      "Bash(DATABASE_URL=\"mongodb://localhost/dummy\" npx prisma validate)"
+      "Bash(DATABASE_URL=\"mongodb://localhost/dummy\" npx prisma validate)",
+      "Bash(npm view *)",
+      "Bash(curl -s -o /tmp/home.html -w \"HTTP_STATUS:%{http_code}\\\\n\" http://localhost:3001/)",
+      "Bash(curl -sv http://127.0.0.1:3001/ -o /tmp/home.html -w \"HTTP_STATUS:%{http_code}\\\\n\")",
+      "Bash(curl -s http://127.0.0.1:3000/ -o /tmp/home.html -w \"HTTP_STATUS:%{http_code}\\\\n\")"
     ]
   }
 }

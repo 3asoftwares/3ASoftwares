@@ -1,28 +1,89 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --gradient-from: #4f46e5;
+    --gradient-to: #0891b2;
+}
+
+.dark {
+    --gradient-from: #a5b4fc;
+    --gradient-to: #22d3ee;
 }
 
 body {
-  margin: 0;
-  font-family: 'Lato', sans-serif;
+    margin: 0;
+    font-family: var(--font-inter), sans-serif;
 }
 
-.hero {
-  background: url(../images/hero-bg.svg) top center no-repeat;
-  background-size: cover;
+::selection {
+    background-color: rgba(99, 102, 241, 0.3);
 }
 
-.footer {
-  background: url(../images/footer.svg) top center no-repeat;
-  background-size: cover;
+.text-gradient {
+    background-image: linear-gradient(135deg, var(--gradient-from) 0%, var(--gradient-to) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-.cta {
-  background: linear-gradient(rgba(2,2,2,.7),rgba(0,0,0,.7)),url(https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80) fixed center center;
+/* Semantic surface tokens — centralizes light/dark swapping instead of
+   sprinkling dark: variants across every component. */
+.bg-canvas {
+    background-color: #ffffff;
+}
+.dark .bg-canvas {
+    background-color: #05070f;
+}
+
+.bg-surface {
+    background-color: #f8fafc;
+}
+.dark .bg-surface {
+    background-color: #0b0f1a;
+}
+
+.text-fg {
+    color: #0f172a;
+}
+.dark .text-fg {
+    color: #f1f5f9;
+}
+
+.text-fg-muted {
+    color: #56617a;
+}
+.dark .text-fg-muted {
+    color: #94a3b8;
+}
+
+.border-hairline {
+    border-color: #e2e8f0;
+}
+.dark .border-hairline {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.glass-panel {
+    background-color: rgba(15, 23, 42, 0.03);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+.dark .glass-panel {
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.section-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(55% 40% at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+.dark .section-glow {
+    background: radial-gradient(55% 40% at 50% 0%, rgba(99, 102, 241, 0.16) 0%, transparent 70%);
 }
